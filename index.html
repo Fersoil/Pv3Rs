@@ -5,14 +5,19 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Estimate the cause of recurrent vivax malaria using genetic data • Pv3Rs</title>
+<title>Estimate the Cause of Recurrent Vivax Malaria using Genetic Data • Pv3Rs</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Estimate the cause of recurrent vivax malaria using genetic data">
-<meta name="description" content="Estimate per-person posterior probabilities that each recurrent Plasmodium vivax (Pv) infection is a recrudescence, relapse, or reinfection (3Rs) using per-person P. vivax genetic data on two or more episodes.">
-<meta property="og:description" content="Estimate per-person posterior probabilities that each recurrent Plasmodium vivax (Pv) infection is a recrudescence, relapse, or reinfection (3Rs) using per-person P. vivax genetic data on two or more episodes.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Estimate the Cause of Recurrent Vivax Malaria using Genetic Data">
+<meta name="description" content="Compute per-person posterior probabilities that each recurrent Plasmodium vivax (Pv) recurrence is a recrudescence, relapse, or reinfection (3Rs) using per-person P. vivax genetic data on two or more episodes.">
+<meta property="og:description" content="Compute per-person posterior probabilities that each recurrent Plasmodium vivax (Pv) recurrence is a recrudescence, relapse, or reinfection (3Rs) using per-person P. vivax genetic data on two or more episodes.">
 <meta property="og:image" content="https://aimeertaylor.github.io/Pv3Rs/logo.png">
 </head>
 <body>
@@ -33,18 +38,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/benchmarking.html">Benchmarking Pv3Rs</a></li>
-    <li><a class="dropdown-item" href="articles/demonstrate-usage.html">Demonstrate Pv3Rs usage</a></li>
-    <li><a class="dropdown-item" href="articles/enumerate.html">Enumerate graphs and partitions</a></li>
-    <li><a class="dropdown-item" href="articles/intra-episode-siblings.html">Explore treatment of intra-episode siblings</a></li>
-    <li><a class="dropdown-item" href="articles/understand-graph-prior.html">Understand graph prior ramifications</a></li>
-    <li><a class="dropdown-item" href="articles/understand-half-sibs.html">Understand half-sibling misspecification</a></li>
-    <li><a class="dropdown-item" href="articles/understand-posterior.html">Understand posterior estimates</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="articles/index.html">Articles</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -71,13 +65,13 @@
 <img src="logo.png" class="logo" alt=""><h1 id="pv3rs-">Pv3Rs <a class="anchor" aria-label="anchor" href="#pv3rs-"></a>
 </h1>
 </div>
-<p>An R package for <em>Plasmodium vivax</em> molecular correction via statistical genetic inference of <em>P. vivax</em></p>
+<p>An R package for <em>Plasmodium vivax</em> molecular correction via statistical genetic inference of</p>
 <ul>
 <li>Relapse</li>
 <li>Recrudescence</li>
 <li>Reinfection</li>
 </ul>
-<p>The core function, <code><a href="reference/compute_posterior.html">compute_posterior()</a></code>, computes per-person posterior probabilities of relapse, recrudescence, and reinfection (recurrence states) using <em>P. vivax</em> genetic data on two or more episodes. To fully understand the core function, in addition to reading this README in its entirety and the pre-print cited below, we recommend reading the <code><a href="articles/demonstrate-usage.html">vignette("demonstrate-usage", "Pv3Rs")</a></code> and <a href="https://aimeertaylor.github.io/Pv3Rs/articles/understand-posterior.html">Understand posterior estimates</a>.</p>
+<p>The core function, <code><a href="reference/compute_posterior.html">compute_posterior()</a></code>, computes per-person posterior probabilities of relapse, recrudescence, and reinfection (recurrence states) using <em>P. vivax</em> genetic data on two or more episodes. To fully understand the core function, in addition to reading this README in its entirety and the pre-print cited below, we recommend reading the <code><a href="articles/demonstrate-usage.html">vignette("demonstrate-usage", "Pv3Rs")</a></code> and <a href="https://aimeertaylor.github.io/Pv3Rs/articles/understand-posterior.html">Understand posterior probabilities</a>.</p>
 <p>Two other important features:</p>
 <ul>
 <li><p><code><a href="reference/plot_data.html">plot_data()</a></code> visualises genetic data for molecular correction, regardless of the analytical method (e.g., <em>Plasmodium falciparum</em> data intended for analysis using a WHO match-counting algorithm).</p></li>
@@ -86,14 +80,12 @@
 <div class="section level2">
 <h2 id="please-be-aware-of-the-following-points">Please be aware of the following points!<a class="anchor" aria-label="anchor" href="#please-be-aware-of-the-following-points"></a>
 </h2>
-<p>The Pv3Rs R package is not yet peer-reviewed and thus liable to modification. The model is described in a preprint [1], building on a prototype in [2].</p>
-<p>[1] <a href="https://www.medrxiv.org/content/10.1101/2022.11.23.22282669v1" class="external-link">Taylor, Foo &amp; White, 2022</a></p>
-<p>[2] <a href="https://www.nature.com/articles/s41467-019-13412-x" class="external-link">Taylor &amp; Watson et al. 2019</a></p>
+<p>The Pv3Rs R package is not yet peer-reviewed and thus liable to modification. The model is described in the preprint <a href="https://www.medrxiv.org/content/10.1101/2022.11.23.22282669v1" class="external-link">Taylor, Foo &amp; White, 2022</a>, building on a prototype in <a href="https://www.nature.com/articles/s41467-019-13412-x" class="external-link">Taylor &amp; Watson et al. 2019</a>.</p>
 <div class="section level3">
 <h3 id="prior-considerations">Prior considerations:<a class="anchor" aria-label="anchor" href="#prior-considerations"></a>
 </h3>
 <ul>
-<li><p>Genetic data are modelled using a Bayesian model, whose prior is ideally informative (in [2] prior estimates were generated by a time-to-event model built by James Watson) because the cause of recurrent <em>P. vivax</em> malaria is not always identifiable from genetic data alone: when the data are consistent with recurrent parasites that are relatively unrelated to those in all preceding infections, both reinfection and relapse are plausible; meanwhile, when the data are compatible with recurrent parasites that are clones of those in the preceding infection, both recrudescence and relapse are plausible.</p></li>
+<li><p>Genetic data are modelled using a Bayesian model, whose prior is ideally informative (in [2] priors were generated by a time-to-event model built by James Watson) because the cause of recurrent <em>P. vivax</em> malaria is not always identifiable from genetic data alone: when the data are consistent with recurrent parasites that are relatively unrelated to those in all preceding infections, both reinfection and relapse are plausible; meanwhile, when the data are compatible with recurrent parasites that are clones of those in the preceding infection, both recrudescence and relapse are plausible.</p></li>
 <li><p>The main Pv3Rs function, <code><a href="reference/compute_posterior.html">compute_posterior()</a></code>, could be applied to <em>P. falciparum</em> by setting the prior probability of relapse to zero, but genotyping errors, which are not accounted for under the current Pv3Rs model, are liable to lead to the misclassification of recrudescence as reinfection when the prior probability of relapse is zero (and of recrudescence as relapse when the prior probability of relapse exceeds zero).</p></li>
 </ul>
 </div>
@@ -125,7 +117,7 @@
 <div class="section level4">
 <h4 id="observation-errors-and-de-novo-mutations">Observation errors and <em>de novo</em> mutations<a class="anchor" aria-label="anchor" href="#observation-errors-and-de-novo-mutations"></a>
 </h4>
-<p>We do not model undetected alleles, genotyping errors, or <em>de novo</em> mutations. Recrudescent parasites are modelled as perfect clones under Pv3Rs. As such, the posterior probability of recrudescence is rendered zero by errors and mutations. This becomes more likely when there are data on more markers. Sensitivity analyses that explore the impact of errors and mutations on recurrence state estimates are merited.</p>
+<p>We do not model undetected alleles, genotyping errors, or <em>de novo</em> mutations. Recrudescent parasites are modelled as perfect clones under Pv3Rs. As such, the posterior probability of recrudescence is rendered zero by errors and mutations. This becomes more likely when there are data on more markers. Sensitivity analyses that explore the impact of errors and mutations on recurrence state probabilities are merited.</p>
 </div>
 <div class="section level4">
 <h4 id="interpreting-probable-reinfection-and-recrudescence">Interpreting probable reinfection and recrudescence<a class="anchor" aria-label="anchor" href="#interpreting-probable-reinfection-and-recrudescence"></a>
@@ -174,7 +166,7 @@
 </h3>
 <ul>
 <li><p>Pv3Rs scales to hundreds of markers but not whole-genome sequence (WGS) data.</p></li>
-<li><p>We do not recommend running <code><a href="reference/compute_posterior.html">compute_posterior()</a></code> for data whose total genotype count (sum of per-episode multiplicities of infection) exceeds eight. If the total genotype counts exceeds eight but there are multiple recurrences, it might be possible to generate recurrent state estimates by analysing episodes pairwise (this approach was used in [2] and we’re working currently on an improved version).</p></li>
+<li><p>We do not recommend running <code><a href="reference/compute_posterior.html">compute_posterior()</a></code> for data whose total genotype count (sum of per-episode multiplicities of infection) exceeds eight. If the total genotype counts exceeds eight but there are multiple recurrences, it might be possible to compute posterior probabilities by analysing episodes pairwise (this approach was used in [2] and we’re working currently on an improved version).</p></li>
 <li><p>The per-marker allele limit of <code><a href="reference/compute_posterior.html">compute_posterior()</a></code> is untested. Very high marker cardinalities could lead to very small allele frequencies and thus some underflow problems.</p></li>
 </ul>
 </div>

@@ -5,12 +5,20 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Understand posterior estimates • Pv3Rs</title>
+<title>Understand posterior probabilities • Pv3Rs</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Understand posterior estimates">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Understand posterior probabilities">
+<meta name="description" content="Documents `compute_posterior()` output under various conditions">
+<meta property="og:description" content="Documents `compute_posterior()` output under various conditions">
+<meta property="og:image" content="https://aimeertaylor.github.io/Pv3Rs/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -30,18 +38,7 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/benchmarking.html">Benchmarking Pv3Rs</a></li>
-    <li><a class="dropdown-item" href="../articles/demonstrate-usage.html">Demonstrate Pv3Rs usage</a></li>
-    <li><a class="dropdown-item" href="../articles/enumerate.html">Enumerate graphs and partitions</a></li>
-    <li><a class="dropdown-item" href="../articles/intra-episode-siblings.html">Explore treatment of intra-episode siblings</a></li>
-    <li><a class="dropdown-item" href="../articles/understand-graph-prior.html">Understand graph prior ramifications</a></li>
-    <li><a class="dropdown-item" href="../articles/understand-half-sibs.html">Understand half-sibling misspecification</a></li>
-    <li><a class="dropdown-item" href="../articles/understand-posterior.html">Understand posterior estimates</a></li>
-  </ul>
-</li>
+<li class="active nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -68,20 +65,20 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Understand posterior estimates</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Understand posterior probabilities</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/aimeertaylor/Pv3Rs/blob/main/vignettes/articles/understand-posterior.Rmd" class="external-link"><code>vignettes/articles/understand-posterior.Rmd</code></a></small>
-      <div class="d-none name"><code>understand-posterior.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/aimeertaylor/Pv3Rs/blob/main/vignettes/articles/posterior-probabilities.Rmd" class="external-link"><code>vignettes/articles/posterior-probabilities.Rmd</code></a></small>
+      <div class="d-none name"><code>posterior-probabilities.Rmd</code></div>
     </div>
 
     
     
+<p>This vignette is a detailed sequel to
+<code><a href="../articles/demonstrate-usage.html">vignette("demonstrate-usage", "Pv3Rs")</a></code>.</p>
 <div class="section level2">
 <h2 id="summary-of-contents">Summary of contents<a class="anchor" aria-label="anchor" href="#summary-of-contents"></a>
 </h2>
-<p>This vignette is a detailed sequel to
-<code><a href="../articles/demonstrate-usage.html">vignette("demonstrate-usage", "Pv3Rs")</a></code>.</p>
 <p>We start by documenting the output of
 <code><a href="../reference/compute_posterior.html">compute_posterior()</a></code> when the statistical model underpinning
 it is well specified but</p>
@@ -91,15 +88,14 @@ it is well specified but</p>
 <li><a href="#one-episode">Data are limited to only one episode</a></li>
 <li><a href="#incomparable">Data are incomparable across
 episodes</a></li>
-<li>Data are limited to only <a href="#one-marker">one marker</a> or <a href="#two-markers">two markers</a>
-</li>
+<li><a href="#one-marker">Data are limited to only one marker</a></li>
+<li><a href="#two-markers">Data are limited to only two markers</a></li>
 </ul>
-<p>Given <a href="#many-markers">data on many markers</a>, we then show
+<p><a href="#many-markers">Given data on many markers</a>, we then show
 under the well specified model how maximum probabilities of
 recrudescence and reinfection depend on</p>
 <ul>
-<li><a href="#mois">Per-episode multiplicities of infections
-(MOIs)</a></li>
+<li><a href="#mois">Per-episode multiplicities of infections</a></li>
 <li><a href="#epi-count">Episode count</a></li>
 <li><a href="#position">Position of a recurrence in a sequence of
 episodes</a></li>
@@ -114,9 +110,8 @@ of</p>
 <li><a href="#half">Half siblings</a></li>
 <li><a href="#parent-child-like">Parent-child-like siblings</a></li>
 </ul>
-<p>More detailed results on sibling misspecification can be found in the
-<a href="https://github.com/aimeertaylor/Pv3Rs/tree/main/DevFiles/RelationshipStudy" class="external-link">development
-files of the Pv3Rs source package</a>.</p>
+<p>More detailed results on sibling misspecification can be found
+in<br><a href="https://github.com/aimeertaylor/Pv3Rs/tree/main/vignettes/articles/RelationshipStudy" class="external-link">RelationshipStudy</a>.</p>
 <p>We have not yet characterised model misspecification due to
 genotyping errors nor stranger parasites with elevated relatedness: -
 Genotyping errors will likely cause misspecification of recrudescence as
@@ -235,11 +230,11 @@ relationship graphs with intra-episode relatedness.</p>
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>enrol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>m1 <span class="op">=</span> <span class="st">'A'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>m1 <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="co"># Homoallelic data</span></span>
 <span><span class="va">MOIs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># Different MOIs with first MOI &gt; 1</span></span>
 <span><span class="va">fs</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>m1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span> <span class="op">=</span> <span class="fl">0.01</span>, <span class="st">"B"</span> <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span><span class="op">)</span> <span class="co"># Rare observed allele</span></span></code></pre></div>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
 <p>The per-graph likelihood is only appreciable for relationship graphs
 where all distinct parasite genotypes in the first episode are
 siblings</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-11-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-11-1.png" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -301,7 +296,7 @@ recrudescence.</li>
 the assumption under the model that there are no genotyping errors: if a
 genotyping error generates a single mismatch, the posterior probability
 of recrudescence is quashed.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="two-markers">Data on only two markers<a class="anchor" aria-label="anchor" href="#two-markers"></a>
@@ -312,7 +307,7 @@ An exception is adding a common match to a common partial match, which
 adds little information (central arrow). When a mismatch is added to a
 rare match (diamond), relapse becomes the most probable state. This
 illustrates the multiple-marker requirement of relapse inference.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="many-markers">Data on many markers<a class="anchor" aria-label="anchor" href="#many-markers"></a>
@@ -380,7 +375,7 @@ the following code chunks.</p>
 <code class="sourceCode R"><span><span class="va">MOIs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="va">y_match</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>enrol <span class="op">=</span> <span class="va">all_As</span>, recur <span class="op">=</span> <span class="va">all_As</span><span class="op">)</span></span>
 <span><span class="va">y_mismatch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>enrol <span class="op">=</span> <span class="va">all_As</span>, recur <span class="op">=</span> <span class="va">all_Bs</span><span class="op">)</span></span></code></pre></div>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-18-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-18-1.png" width="100%"></p>
 <p>The posterior probabilities increase with increasing graph size, but
 only if the MOIs are balanced in the case of recrudescence.</p>
 <div class="section level4">
@@ -391,7 +386,7 @@ user-specified MOIs without changing the data, or we can increase the
 allelic diversity of the data, s.t. MOIs modelled under Pv3Rs increase
 without user-specified MOIs. Either way, we get the same maximum
 probabilitie, but the graph likelihoods change:</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-20-1.png" width="100%"><img src="understand-posterior_files/figure-html/unnamed-chunk-20-2.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-20-1.png" width="100%"><img src="posterior-probabilities_files/figure-html/unnamed-chunk-20-2.png" width="100%"></p>
 <p>For the homoallelic data with elevated user-specified MOIs, all
 intra-episode parasites in maximum likelihood graphs are siblings. For
 the heteroallelic data, all intra-episode parasites in maximum
@@ -401,7 +396,7 @@ increased by increasing counts of intra-episode siblings. Since siblings
 are not independent, these maxima arguably should not increase beyond
 two siblings per episode. Under the Pv3Rs model with realistic MOI
 estimates, groups of three or more siblings are effectively treated as
-pairs; see <code><a href="../articles/intra-episode-siblings.html">vignette("intra-episode-siblings", "Pv3Rs")</a></code>.</p>
+pairs; see <code>vignette("intra-episode-siblings", "Pv3Rs")</code>.</p>
 <p>END OF DIGRESSION</p>
 </div>
 </div>
@@ -431,10 +426,10 @@ pairs; see <code><a href="../articles/intra-episode-siblings.html">vignette("int
 <span>                                          recur3 <span class="op">=</span> <span class="va">no_data</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The marginal probability that the first recurrence is a recrudescence
 / reinfection depends on the total number of recurrences:</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-24-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-24-1.png" width="100%"></p>
 <p>An example of how recrudescence probabilities converge to their
 maxima over 1, 2, 5 and 100 markers:</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-25-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-25-1.png" width="100%"></p>
 <p>Recall that the above maxima are not bounds imposed by the prior:
 they are based on knowledge that there are no recurrent data on all but
 the first recurrence; see <a href="https://aimeertaylor.github.io/Pv3Rs/articles/understand-graph-prior.html">Understand
@@ -447,7 +442,7 @@ graph prior ramifications</a>.</p>
 different orderings of states in a sequence (more graphs are compatible
 with a reinfection at the beginning versus the end of a sequence of
 three episodes, for example), the position of a recurrence in a sequence
-affects its per-recurrence posterior estimates. These examples also
+affects its per-recurrence posterior probability. These examples also
 highlight why, under a well-specified model, jointly modelling data
 across more than two episodes is preferable to analysing episodes
 pairwise.</p>
@@ -485,7 +480,7 @@ episodes with no data (Ns):</p>
 <span>                    <span class="st">"OON"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>enrol <span class="op">=</span> <span class="va">all_As</span>, </span>
 <span>                                 recur1 <span class="op">=</span> <span class="va">all_Bs</span>,</span>
 <span>                                 recur2 <span class="op">=</span> <span class="va">no_data</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-28-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-28-1.png" width="100%"></p>
 <div class="section level4">
 <h4 id="highly-informed-recurrences">Highly informed recurrences<a class="anchor" aria-label="anchor" href="#highly-informed-recurrences"></a>
 </h4>
@@ -538,8 +533,8 @@ recurrence that is a clone of the MOI = 1 enrolment episode, it is very
 unlikely the second recurrence is a clone drawn from a new mosquito as
 it would be if it were a recrudescence of a reinfection. Thus, the
 enrolment and second recurrence data inform the first recurrence,
-causing its posterior estimate to deviate from the prior even though it
-has no data.</p>
+causing its posterior to deviate from the prior even though it has no
+data.</p>
 <p>The explanation for mismatch data (downward triangles) in the
 sequence <span style="color:
 darkorange;">ONO</span> is similar to that for match data: strong
@@ -561,8 +556,8 @@ the first recurrence having no data.</p>
 <div class="section level2">
 <h2 id="uncertainty">Interpreting uncertainty<a class="anchor" aria-label="anchor" href="#uncertainty"></a>
 </h2>
-<p>Uncertain posterior estimates can be uncertain for two reasons that
-are not mutually exclusive:</p>
+<p>Uncertain posterior probabilities can be uncertain for two reasons
+that are not mutually exclusive:</p>
 <ol style="list-style-type: decimal">
 <li>more data are needed</li>
 <li>the states are not fully identifiable</li>
@@ -628,14 +623,14 @@ sibling,</li>
 <li>certain relapse when the recurrent parasite is a meiotic
 sibling.</li>
 </ul>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-32-1.png" width="100%"><img src="understand-posterior_files/figure-html/unnamed-chunk-32-2.png" width="100%"><img src="understand-posterior_files/figure-html/unnamed-chunk-32-3.png" width="100%"><img src="understand-posterior_files/figure-html/unnamed-chunk-32-4.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-32-1.png" width="100%"><img src="posterior-probabilities_files/figure-html/unnamed-chunk-32-2.png" width="100%"><img src="posterior-probabilities_files/figure-html/unnamed-chunk-32-3.png" width="100%"><img src="posterior-probabilities_files/figure-html/unnamed-chunk-32-4.png" width="100%"></p>
 <p>When the initial infection contains three meiotic siblings and the
 recurrent parasite is either a stranger or a clone, posterior
 probabilities converge correctly to probable reinfection and probable
 recrudescence, respectively, but with maximal values given by graphs
 over relationships between two, not three, parasites in the initial
 infection.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-33-1.png" width="100%"><img src="understand-posterior_files/figure-html/unnamed-chunk-33-2.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-33-1.png" width="100%"><img src="posterior-probabilities_files/figure-html/unnamed-chunk-33-2.png" width="100%"></p>
 <p>Relationship graphs (not shown) are wrong for two reasons:</p>
 <ul>
 <li>all the relationship graphs have two, not three, parasites in the
@@ -660,7 +655,7 @@ on graphs with a clonal edge to the sibling relapse, and either two
 stranger parasites in the initial episode when no external MOIs are
 specified, or three sibling parasites in the initial episode when the
 correct MOIs (unknowable in practice) are provided externally.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-34-1.png" width="100%"><img src="understand-posterior_files/figure-html/unnamed-chunk-34-2.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-34-1.png" width="100%"><img src="posterior-probabilities_files/figure-html/unnamed-chunk-34-2.png" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -704,12 +699,12 @@ ratio consistently exceeds
 a condition found theoretically to concentrate posterior probability on
 reinfection under certain conditions; again, see <a href="https://aimeertaylor.github.io/Pv3Rs/articles/understand-half-sibs.html">Understand
 half-sibling misspecification</a>.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-35-1.png" width="100%">
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-35-1.png" width="100%">
 When intra-episode parasites systematically share rare alleles
 (admixture AND imbalanced allele frequencies), the frequency of probable
 reinfection increases erratically with the number of markers
 genotyped.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-36-1.png" width="100%">
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-36-1.png" width="100%">
 In both scenarios, the likelihood of the true graph with siblings within
 and across episodes is quashed as soon as distinct alleles from all
 three parents are observed at a given marker. In general,</p>
@@ -754,12 +749,12 @@ classification.</p>
 <p>When parental parasites draw from the same allele distribution, the
 frequency of certain relapse increases erratically with the number of
 markers genotyped.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-37-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-37-1.png" width="100%"></p>
 <p>When intra-episode parasites systematically share rare alleles
 (admixture AND imbalanced allele frequencies), the frequency of probable
 reinfection increases erratically with the number of markers
 genotyped.</p>
-<p><img src="understand-posterior_files/figure-html/unnamed-chunk-38-1.png" width="100%"></p>
+<p><img src="posterior-probabilities_files/figure-html/unnamed-chunk-38-1.png" width="100%"></p>
 <p>In general, when all parasites draw from the same allele
 distribution, the maximum likelihood graph is the true graph with
 siblings within and across episodes. Meanwhile, when intra-episode
